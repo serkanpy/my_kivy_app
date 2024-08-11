@@ -33,13 +33,16 @@ jobs:
         pip3 install --upgrade cython
         pip3 install buildozer
 
+    - name: Create Android SDK directories
+      run: |
+        mkdir -p $HOME/.android/cmdline-tools
+        mkdir -p $HOME/.android/cmdline-tools/tools
+
     - name: Install Android SDK
       run: |
         sudo apt-get install -y openjdk-8-jdk
         wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip
-        unzip commandlinetools-linux-7583922_latest.zip -d $HOME/.android/cmdline-tools
-        mkdir -p $HOME/.android/cmdline-tools/tools
-        mv $HOME/.android/cmdline-tools/cmdline-tools/* $HOME/.android/cmdline-tools/tools/
+        unzip commandlinetools-linux-7583922_latest.zip -d $HOME/.android/cmdline-tools/tools
         yes | $HOME/.android/cmdline-tools/tools/bin/sdkmanager --licenses
         $HOME/.android/cmdline-tools/tools/bin/sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3"
 
